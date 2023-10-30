@@ -40,7 +40,7 @@ ex) count = [1, 1, 0, 1] -> [1, 1+1, 1+1+0, 1+1+0+1]=[1, 2, 2, 3]
 */
 
 func upgradeCountSort() {
-	arr := []int{5, 3, 7, 3, 8, 8, 1, 1, 8, 10, 0, 10, 8, 2, 1, 2, 7, 4, 3}
+	arr := []int{0, 5, 3, 7, 3, 8, 8, 1, 1, 8, 10, 0, 10, 8, 2, 1, 2, 7, 4, 3}
 	var count [11]int
 	for i := 0; i < len(arr); i++ {
 		count[arr[i]]++
@@ -48,15 +48,15 @@ func upgradeCountSort() {
 	fmt.Println("count: ", count)
 
 	for i := 1; i < 11; i++ {
-		count[i] += count[i-1] // 이전 값을 하나씩 더하기
+		count[i] += count[i-1] // 이전 값을 하나씩 더하기 -> 인덱스가 아닌 몇번째로 읽힌다
 	}
 	fmt.Println("count2: ", count)
-
-	sorted := make([]int, len(arr))
-	for i := 0; i < len(arr); i++ {
-		sorted[count[arr[i]]-1] = arr[i]
-		count[arr[i]]++
+	sorted := make([]int, 0, len(arr))
+	for i := 1; i < len(arr); i++ {
+		sorted[count[arr[i]-1]] = arr[i]
+		count[arr[i]]--
 	}
+	fmt.Println("sorted: ", sorted)
 }
 
 // 문제: 알파벳 소문자로 이루어진 문자열 중 가장 많이 나오는 알파벳 출력
@@ -71,7 +71,7 @@ func countAlphabet() {
 	var maxCh byte
 	for i := 0; i < 26; i++ {
 		if count[i] > maxCount {
-			maxCount = i          // 가장 count가 큰 것은 반복문으로 하나씩 비교하면서 maxCount 업데이트 하는 방식!
+			maxCount = count[i]   // 가장 count가 큰 것은 반복문으로 하나씩 비교하면서 maxCount 업데이트 하는 방식!
 			maxCh = byte('a' + i) // 숫자를 알파벳으로 바꾸는 방법
 		}
 	}
@@ -119,8 +119,8 @@ func studentHeight() {
 }
 
 func main() {
-	//countSort()
-	//upgradeCountSort()
+	// countSort()
+	upgradeCountSort()
 	//countAlphabet()
-	studentHeight()
+	// studentHeight()
 }
