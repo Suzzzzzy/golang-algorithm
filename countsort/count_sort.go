@@ -102,7 +102,7 @@ func studentHeight() {
 		{Name: "Tom", Height: 164.8},
 	}
 	// 키에 따른 배열을 만든다
-	var heightMap [3000][]string // 0 < Height < 3m 범위의 배열을 만듬
+	var heightMap [3000][]string // 0 < Height < 3m 범위의 배열을 만듬, 같은 키인 아이들이 여럿일 수 있기 때문에 []string
 	for i := 0; i < len(students); i++ {
 		idx := int(students[i].Height * 10)
 		heightMap[idx] = append(heightMap[idx], students[i].Name) // 3000 개의 배열에 각 키 값에 맞는 학생 이름이 들어가있음
@@ -120,7 +120,7 @@ func studentHeight() {
 
 func main() {
 	// countSort()
-	upgradeCountSort()
+	//upgradeCountSort()
 	//countAlphabet()
 	// studentHeight()
 }

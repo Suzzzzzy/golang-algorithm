@@ -1,5 +1,17 @@
 package main
 
+/*
+Node는 연결 리스트에서 각각의 요소를 나타내는 기본 단위
+연결 리스트는 데이터 요소를 저장하는 노드들이 서로 연결된 데이터 구조!
+Node[T] 에서 T는 Generic 으로 정의되어 어떤 데이터 타입이든 저장할 수 있다
+intNode := Node[int]{
+	value: 20
+	next: nil,
+}
+next는 다음 노드를 가리키는 포인터 -> 정수값 직접 할당할 수 없다
+따라서 노드의 인스턴스를 만들고 그 노드의 포인터를 next에 할당해야 한다
+*/
+
 type Node[T any] struct {
 	next  *Node[T]
 	Value T
@@ -141,7 +153,7 @@ func (l *LinkedList[T]) PopFront() {
 	if l.root == nil {
 		return
 	}
+	l.root.next = nil // 참조 끊어주는 의미
 	l.root = l.root.next
-	l.root.next = nil
 	l.count--
 }
