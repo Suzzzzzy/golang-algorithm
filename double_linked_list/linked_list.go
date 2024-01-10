@@ -55,6 +55,16 @@ func (l *LinkedList[T]) GetAt(idx int) *Node[T] {
 	return nil
 }
 
+func (l *LinkedList[T]) isIncluded(node *Node[T]) bool {
+	inner := l.root
+	for ; inner != nil; inner = inner.next {
+		if inner == node {
+			return true
+		}
+	}
+	return false
+}
+
 func (l *LinkedList[T]) PushFront(val T) {
 	n := &Node[T]{
 		Value: val,
@@ -72,8 +82,76 @@ func (l *LinkedList[T]) PushFront(val T) {
 	return
 }
 
-func (l *LinkedList[T]) InsertAfter(node *Node[T], val T) {
+func (l *LinkedList[T]) PopFront() *Node[T] {
+	if l.root == nil {
+		return nil
+	}
+	n := l.root
+	l.root = n.next
+	if l.root != nil {
+		l.root.prev = nil
+	} else { // root가 nil이라는 것은 아무것도 없다는 것
+		l.tail = nil
+	}
+	n.next = nil // 현재 노드(pop하려는 노드)의 next를 끊어준다
+	l.count--
+	return n
+}
+
+func (l *LinkedList[T]) InsertBefore(node *Node[T], val T) {
+	if !l.isIncluded(node) {
+		return
+	}
 	n := &Node[T]{
 		Value: val,
 	}
+	prevNode := node.prev
+	node.prev = n
+
+	n.prev = prevNode
+	n.next = node
+
+	if prevNode != nil {
+		prevNode.next = n
+	}
+	if node == l.root {
+		l.root = n
+	}
+	l.count++
+}
+
+func (l *LinkedList[T]) InsertAfter(node *Node[T], val T) {
+	if !l.isIncluded(node) {
+		return
+	}
+	n := &Node[T]{
+		Value: val,
+	}
+	nextNode := node.next
+	node.next = n
+
+	n.next = nextNode // 새로운 노드의 다음 = 현재 노드의 Next
+	n.prev = node     // 새로운 노드의 이전 = 현재 노드
+
+	if nextNode != nil { // 새로운 노드의 다음이 nil이 아니라면
+		nextNode.prev = n // 원래 Next 노드의 이전 노드 = 새로운 노드
+	}
+	if node == l.tail {
+		l.tail = n // 마지막 노드인지 꼭 확인하는 이유 - noded의 tail 정보를 수정해야 하기 때문
+	}
+
+}
+
+func (l *LinkedList[T]) Reverse() {
+	newL := &LinkedList[T]{}
+	if l.root == nil {
+		return
+	}
+	for l.root != nil {
+		n := l.PopFront()
+		newL.PushFront(n.Value)
+	}
+	l.count = newL.count
+	l.root = newL.root
+	l.tail = newL.tail
 }

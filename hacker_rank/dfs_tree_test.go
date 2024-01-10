@@ -59,8 +59,10 @@ func TestDfsTree(t *testing.T) {
 		{0, 0, 1, 0},
 		{1, 0, 0, 0},
 	}
-	expectedResult := 5
+	expectedResult := int32(5)
 	result := maxRegion(grid)
 
 	assert.Equal(t, expectedResult, result)
 }
+
+// 문제: https://www.hackerrank.com/challenges/torque-and-development/problem
