@@ -98,6 +98,23 @@ func (l *LinkedList[T]) PopFront() *Node[T] {
 	return n
 }
 
+func (l *LinkedList[T]) PopBack() *Node[T] {
+	if l.tail == nil {
+		return nil
+	}
+	n := l.tail
+	l.tail = n.prev
+	if l.tail != nil {
+		l.tail.next = nil
+	} else {
+		l.root = nil
+	}
+	n.prev = nil
+	l.count--
+	return n
+
+}
+
 func (l *LinkedList[T]) InsertBefore(node *Node[T], val T) {
 	if !l.isIncluded(node) {
 		return
