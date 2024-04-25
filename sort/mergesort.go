@@ -13,17 +13,17 @@ func MergeSort[T constraints.Ordered](arr []T) []T {
 }
 
 func merge[T constraints.Ordered](left, right []T) []T {
-	i := 0
-	j := 0
-	idx := 0
+	i := 0   // left index
+	j := 0   // right index
+	idx := 0 // 정렬하여 합치는 배열 index
 	rst := make([]T, len(left)+len(right))
 	for i < len(left) || j < len(right) {
 		var leftMerge bool
 		if i >= len(left) {
-			leftMerge = false
+			leftMerge = false // lefjt 쪽 merge 끝난경우
 		} else if j >= len(right) {
-			leftMerge = true
-		} else {
+			leftMerge = true // right 쪽 merge 끝난경우 = left 합쳐야함
+		} else { // left, right 비교할 배열이 남아있고 진행중일때
 			leftMerge = left[i] < right[j]
 		}
 

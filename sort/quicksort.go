@@ -1,6 +1,9 @@
 package sort
 
-import "golang.org/x/exp/constraints"
+import (
+	"golang.org/x/exp/constraints"
+	"log"
+)
 
 // constraints.Ordered 대소비교가 가능한 타입만
 
@@ -21,6 +24,7 @@ func patition[T constraints.Ordered](arr []T) int {
 	pivot := arr[0]
 	i := 1
 	j := len(arr) - 1
+	t := 0
 	for {
 		for i < len(arr) && arr[i] < pivot {
 			i++
@@ -30,7 +34,8 @@ func patition[T constraints.Ordered](arr []T) int {
 		}
 		if i >= j {
 			arr[0], arr[i-1] = arr[i-1], arr[0]
-			return i - 1
+			log.Printf(" %d 번째: %v", t, arr)
+			return i - 1 // i와 j 가 같거나 역전될때까지 반복하다가, 작은값과 큰값이 양옆으로 분리되었을 때의 그 값을 피봇으로 설정
 		}
 		arr[i], arr[j] = arr[j], arr[i]
 	}
