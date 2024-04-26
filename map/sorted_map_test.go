@@ -1,7 +1,9 @@
 package _map
 
 import (
+	"algorithm/sort"
 	"github.com/stretchr/testify/assert"
+	"log"
 	"testing"
 )
 
@@ -64,4 +66,12 @@ func TestSortedMapRemove(t *testing.T) {
 	assert.False(t, removed)
 
 	assert.Equal(t, 2, len(s.Arr))
+}
+
+func TestArraySortMerge(t *testing.T) {
+	array1 := []int{1, 2, 3, 4, 5}
+	array2 := []int{1, 2, 6, 7, 8}
+
+	result := sort.ArrayMergeSort(array1, array2)
+	log.Print(result)
 }

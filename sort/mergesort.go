@@ -38,3 +38,30 @@ func merge[T constraints.Ordered](left, right []T) []T {
 	}
 	return rst
 }
+
+func ArrayMergeSort[T constraints.Ordered](array1, array2 []T) []T {
+	merged := make([]T, len(array1)+len(array2))
+	i, j := 0, 0
+	idx := 0
+
+	for i < len(array1) || j < len(array2) {
+		var leftMerge bool
+		if i >= len(array1) {
+			leftMerge = false
+		} else if j >= len(array2) {
+			leftMerge = true
+		} else {
+			leftMerge = array1[i] <= array2[j]
+		}
+
+		if leftMerge {
+			merged[idx] = array1[i]
+			i++
+		} else {
+			merged[idx] = array2[j]
+			j++
+		}
+		idx++
+	}
+	return merged
+}

@@ -12,6 +12,9 @@ func TestHashMap(t *testing.T) {
 	val, ok := h.Get("tucker")
 	assert.True(t, ok)
 	assert.Equal(t, 100, val)
+	h.Add("tucker", 200)
+	val, ok = h.Get("tucker")
+	assert.Equal(t, 200, val)
 
 	h.Add("golang", 200)
 
@@ -32,6 +35,9 @@ func TestGoBasicMap(t *testing.T) {
 	m["tucker"] = 100
 	m["golang"] = 200
 	m["awesome"] = 300
+
+	new := make(map[string]int)
+	new["string"] = 100
 
 	assert.Equal(t, 100, m["tucker"])
 	assert.Equal(t, 200, m["golang"])
