@@ -23,6 +23,7 @@ func (s *SortedMap[TKey, TValue]) Add(key TKey, value TValue) {
 	/*
 		sort.Search : func 만족하는 최소한의 i(index) 값을 찾아줌
 		작은 값부터 찾기 때문에
+
 	*/
 	// array 가 아무것도 없는 초기 경우 체크 && 덮어씌우는 경우 체크
 	if idx < len(s.Arr) && s.Arr[idx].Key == key {

@@ -49,3 +49,29 @@ func BenchmarkSliceQueue(b *testing.B) {
 		s.Pop()
 	}
 }
+
+func TestStackUsingQueue(t *testing.T) {
+	stack := StackUsingQueue{}
+	stack.Push(1)
+	stack.Push(2)
+	stack.Push(3)
+
+	println("pop 요소 %v", stack.Pop())
+	println("pop 요소 %v", stack.Pop())
+	println("pop 요소 %v", stack.Pop())
+	println(len(stack.mainQueue))
+	println(len(stack.subQueue))
+}
+
+func TestQueueUsingStack(t *testing.T) {
+	queue := QueueUsingStack{}
+	queue.EnQueue(1)
+	queue.EnQueue(2)
+	queue.EnQueue(3)
+
+	println("pop 요소", queue.DeQueue())
+	println("pop 요소", queue.DeQueue())
+	println("pop 요소", queue.DeQueue())
+	println(len(queue.mainStack))
+	println(len(queue.subStack))
+}
