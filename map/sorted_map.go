@@ -19,6 +19,7 @@ func (s *SortedMap[TKey, TValue]) Add(key TKey, value TValue) {
 	idx := sort.Search(len(s.Arr), func(i int) bool {
 		return s.Arr[i].Key >= key
 	})
+	// array가 아무것도 없는 경우 idx 0 반환
 
 	/*
 		sort.Search : func 만족하는 최소한의 i(index) 값을 찾아줌

@@ -30,7 +30,7 @@ func (t *TreeNode[T]) Postorder(fn func(val T)) {
 	}
 	// 자식들 순회
 	for _, n := range t.Childs {
-		n.Preorder(fn)
+		n.Postorder(fn)
 	}
 	fn(t.Value) // 본인
 }
